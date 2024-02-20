@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url('https://cdn.dribbble.com/users/11609495/screenshots/18251844/media/a4d3556d8b51796968cbcc63ea7c5abc.gif'); /* Replace with your actual sand clock image */
+      background-size: 20pc;
+      background-repeat: no-repeat;
+      background-position: center;
+       }
+
+    .timer {
+      text-align: center;
+    }
+
+    .countdown {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #020202; /* White text color for visibility */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Blue shadow effect */
+    }
+
+    span {
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer">
+    <div class="countdown">
+      <span id="days"></span> days
+      <span id="hours"></span> hours
+      <span id="minutes"></span> minutes
+      <span id="seconds"></span> seconds
+    </div>
+  </div>
+
+  <script>
+    const countdown = document.querySelector('.countdown');
+    const targetDate = new Date('2024-12-31T23:59:59').getTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `
+        <span id="days">${days}</span> days
+        <span id="hours">${hours}</span> hours
+        <span id="minutes">${minutes}</span> minutes
+        <span id="seconds">${seconds}</span> seconds
+      `;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        countdown.innerHTML = 'Countdown expired';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
